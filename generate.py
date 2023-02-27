@@ -17,6 +17,7 @@ def generate(args, g_ema, device, mean_latent):
                 [sample_z], truncation=args.truncation, truncation_latent=mean_latent
             )
 
+            import ipdb;ipdb.set_trace()
             for layer, image in image_per_layer:
                 utils.save_image(
                     image,
