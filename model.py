@@ -569,7 +569,7 @@ class Generator(nn.Module):
         image = skip
 
         if return_latents:
-            return image, latent
+            return image_per_layer, latent
 
         else:
             return image_per_layer, None
