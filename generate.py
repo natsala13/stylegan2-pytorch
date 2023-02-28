@@ -18,7 +18,9 @@ def generate(args, g_ema, device, mean_latent):
             )
 
             import ipdb;ipdb.set_trace()
-            for layer, image in image_per_layer:
+            for layer in image_per_layer:
+                image = image_per_layer[layer]
+
                 utils.save_image(
                     image,
                     f"sample/{str(i).zfill(6)}_layer{layer}.png",
