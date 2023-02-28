@@ -569,10 +569,10 @@ class Generator(nn.Module):
         image = skip
 
         if return_latents:
-            return image_per_layer, latent
+            return image, latent
 
         else:
-            return image_per_layer, None
+            return image, None
 
 
 class ConvLayer(nn.Sequential):
