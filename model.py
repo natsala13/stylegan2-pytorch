@@ -553,9 +553,7 @@ class Generator(nn.Module):
 
         i = 1
 
-        print(skip.size)
-        import ipdb;ipdb.set_trace()
-        image_per_layer = {self.conv1.conv.out_channel: skip}
+        image_per_layer = {skip.size()[-1]: skip}
 
         for conv1, conv2, noise1, noise2, to_rgb in zip(
             self.convs[::2], self.convs[1::2], noise[1::2], noise[2::2], self.to_rgbs
@@ -566,7 +564,8 @@ class Generator(nn.Module):
 
             i += 2
 
-            image_per_layer[conv2.conv.out_channel] = skip
+            print(f'Adding image to layer {skip.size()[-1]}')
+            image_per_layer[skip.size()[-1]] = skip
 
         image = skip
 
