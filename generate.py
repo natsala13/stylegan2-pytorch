@@ -13,20 +13,19 @@ def generate(args, g_ema, device, mean_latent):
         for i in tqdm(range(args.pics)):
             sample_z = torch.randn(args.sample, args.latent, device=device)
 
-            image, _ = g_ema(
+            image_per_layer, _ = g_ema(
                 [sample_z], truncation=args.truncation, truncation_latent=mean_latent
             )
 
-            # for layer in image_per_layer:
-            #     image = image_per_layer[layer]
-
-            utils.save_image(
-                image,
-                f"sample/{str(i).zfill(6)}.png",
-                nrow=1,
-                normalize=True,
-                range=(-1, 1),
-            )
+            for layer in image_per_layer:
+                image = image_per_layer[layer]
+                utils.save_image(
+                    image,
+                    f"sample/{str(i).zfill(6)}_layer{layer}.png",
+                    nrow=1,
+                    normalize=True,
+                    range=(-1, 1),
+                )
 
 
 if __name__ == "__main__":

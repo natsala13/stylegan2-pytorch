@@ -553,6 +553,8 @@ class Generator(nn.Module):
 
         i = 1
 
+        print(skip.size)
+        import ipdb;ipdb.set_trace()
         image_per_layer = {self.conv1.conv.out_channel: skip}
 
         for conv1, conv2, noise1, noise2, to_rgb in zip(
@@ -569,10 +571,10 @@ class Generator(nn.Module):
         image = skip
 
         if return_latents:
-            return image, latent
+            return image_per_layer, latent
 
         else:
-            return image, None
+            return image_per_layer, None
 
 
 class ConvLayer(nn.Sequential):
