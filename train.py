@@ -488,10 +488,10 @@ if __name__ == "__main__":
             pass
 
         print('########### Generator ##############')
-        print([x for x in generator.named_parameters()])
+        print([x for x, _ in generator.named_parameters()])
 
         print('########### Discriminator ##############')
-        print([y for y in discriminator.named_parameters()])
+        print([y for y, _ in discriminator.named_parameters()])
 
 
         print('Loading generator model')
