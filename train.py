@@ -499,6 +499,9 @@ if __name__ == "__main__":
 
         print('#### Trying to take only needed values from Geneerator')
         pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.named_parameters()}
+
+        import ipdd;ipdb.set_trace()
+
         generator.load_state_dict(pretrained_generator)
 
         print('#### Trying to take only needed values from Dicriminator')
