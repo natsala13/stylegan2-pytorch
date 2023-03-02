@@ -502,8 +502,19 @@ if __name__ == "__main__":
         generator.load_state_dict(pretrained_generator, strict=False)
 
         print('#### Trying to take only needed values from Dicriminator')
-        pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
-        discriminator.load_state_dict(pretrained_discriminator)
+        # pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
+
+        import re
+
+        def subtract_one_from_layer(layer):
+            if not layer.startswith('conv'):
+                return layer
+            layer_number = int(re.match(r'convs\.(\d).*', layer).group(1)) - 1
+            return re.sub(r'(convs\.)(\d)(.*)', fr'\g<1>{layer_number}\g<3>', layer)
+
+
+        pretrained_discriminator = {subtract_one_from_layer(k): v for k, v in ckpt["d"]}
+        discriminator.load_state_dict(pretrained_discriminator, strict=False)
 
         # print('Loading generator model')
         # generator.load_state_dict(ckpt["g"])
