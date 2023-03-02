@@ -492,18 +492,24 @@ if __name__ == "__main__":
         print('state dict')
         print([x for x, _ in ckpt["g"].items()])
 
-
         print('########### Discriminator ##############')
         print([y for y, _ in discriminator.named_parameters()])
         print('state dict')
         print([x for x, _ in ckpt["d"].items()])
 
+        print('#### Trying to take only needed values from Geneerator')
+        pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
+        generator.load_state_dict(pretrained_generator)
 
-        print('Loading generator model')
-        generator.load_state_dict(ckpt["g"])
+        print('#### Trying to take only needed values from Dicriminator')
+        pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
+        discriminator.load_state_dict(pretrained_discriminator)
 
-        print('Loading discriminator model')
-        discriminator.load_state_dict(ckpt["d"])
+        # print('Loading generator model')
+        # generator.load_state_dict(ckpt["g"])
+
+        # print('Loading discriminator model')
+        # discriminator.load_state_dict(ckpt["d"])
 
         print('Loading g_ema model')
         g_ema.load_state_dict(ckpt["g_ema"])
