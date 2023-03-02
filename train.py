@@ -489,9 +489,14 @@ if __name__ == "__main__":
 
         print('########### Generator ##############')
         print([x for x, _ in generator.named_parameters()])
+        print('state dict')
+        print([x for x, _ in ckpt["g"].items()])
+
 
         print('########### Discriminator ##############')
         print([y for y, _ in discriminator.named_parameters()])
+        print('state dict')
+        print([x for x, _ in ckpt["d"].items()])
 
 
         print('Loading generator model')
