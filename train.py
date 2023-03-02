@@ -487,11 +487,26 @@ if __name__ == "__main__":
         except ValueError:
             pass
 
+        print('########### Generator ##############')
+        print(generator.named_parameters())
+
+        print('########### Discriminator ##############')
+        print(discriminator.named_parameters())
+
+
+        print('Loading generator model')
         generator.load_state_dict(ckpt["g"])
+
+        print('Loading discriminator model')
         discriminator.load_state_dict(ckpt["d"])
+
+        print('Loading g_ema model')
         g_ema.load_state_dict(ckpt["g_ema"])
 
+        print('Loading g_optim model')
         g_optim.load_state_dict(ckpt["g_optim"])
+
+        print('Loading d_optim model')
         d_optim.load_state_dict(ckpt["d_optim"])
 
     if args.distributed:
