@@ -439,14 +439,14 @@ class Generator(nn.Module):
         self.convs = nn.ModuleList()
         self.upsamples = nn.ModuleList()
         self.to_rgbs = nn.ModuleList()
-        self.noises = nn.Module()
+        # self.noises = nn.Module()
 
         in_channel = self.channels[4]
 
-        for layer_idx in range(self.num_layers):
-            res = (layer_idx + 5) // 2
-            shape = [1, 1, 2 ** res, 2 ** res]
-            self.noises.register_buffer(f"noise_{layer_idx}", torch.randn(*shape))
+        # for layer_idx in range(self.num_layers):
+        #     res = (layer_idx + 5) // 2
+        #     shape = [1, 1, 2 ** res, 2 ** res]
+        #     self.noises.register_buffer(f"noise_{layer_idx}", torch.randn(*shape))
 
         for i in range(3, self.log_size + 1):
             out_channel = self.channels[2 ** i]
@@ -514,9 +514,10 @@ class Generator(nn.Module):
             if randomize_noise:
                 noise = [None] * self.num_layers
             else:
-                noise = [
-                    getattr(self.noises, f"noise_{i}") for i in range(self.num_layers)
-                ]
+                raise BaseException('randomize noize has to be True.')
+                # noise = [
+                #     getattr(self.noises, f"noise_{i}") for i in range(self.num_layers)
+                # ]
 
         if truncation < 1:
             style_t = []

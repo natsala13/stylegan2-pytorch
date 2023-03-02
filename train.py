@@ -498,7 +498,7 @@ if __name__ == "__main__":
         print([x for x, _ in ckpt["d"].items()])
 
         print('#### Trying to take only needed values from Geneerator')
-        pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.named_parameters()}
+        pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
 
         import ipdb;ipdb.set_trace()
 
