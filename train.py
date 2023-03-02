@@ -499,13 +499,10 @@ if __name__ == "__main__":
 
         print('#### Trying to take only needed values from Geneerator')
         pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
-
-        import ipdb;ipdb.set_trace()
-
         generator.load_state_dict(pretrained_generator)
 
         print('#### Trying to take only needed values from Dicriminator')
-        pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.named_parameters()}
+        pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
         discriminator.load_state_dict(pretrained_discriminator)
 
         # print('Loading generator model')
