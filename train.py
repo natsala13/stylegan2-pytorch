@@ -499,7 +499,7 @@ if __name__ == "__main__":
 
         print('#### Trying to take only needed values from Geneerator')
         pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
-        generator.load_state_dict(pretrained_generator)
+        generator.load_state_dict(pretrained_generator, strict=False)
 
         print('#### Trying to take only needed values from Dicriminator')
         pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
