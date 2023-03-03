@@ -511,7 +511,7 @@ if __name__ == "__main__":
             layer_number = int(re.match(r'convs\.(\d).*', layer).group(1)) - 1
             return re.sub(r'(convs\.)(\d)(.*)', fr'\g<1>{layer_number}\g<3>', layer)
 
-        import ipdb;ipdb.set_trace()
+        # import ipdb;ipdb.set_trace()
         pretrained_discriminator = {subtract_one_from_layer(k): ckpt['d'][k] for k in ckpt["d"]}
         discriminator_state = discriminator.state_dict()
         discriminator_state.update(pretrained_discriminator)
@@ -524,7 +524,9 @@ if __name__ == "__main__":
         # discriminator.load_state_dict(ckpt["d"])
 
         print('Loading g_ema model')
-        g_ema.load_state_dict(ckpt["g_ema"])
+        pretrained_ema = {k: v for k, v in ckpt["g_ema"].items() if k in generator.state_dict()}
+        g_ema.load_state_dict(pretrained_generator, strict=False)
+        # g_ema.load_state_dict(ckpt["g_ema"])
 
         print('Loading g_optim model')
         g_optim.load_state_dict(ckpt["g_optim"])
