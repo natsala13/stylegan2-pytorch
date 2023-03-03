@@ -529,6 +529,7 @@ if __name__ == "__main__":
         # g_ema.load_state_dict(ckpt["g_ema"])
 
         print('Loading g_optim model')
+        import ipdb;ipdb.set_trace()
         g_optim.load_state_dict(ckpt["g_optim"])
 
         print('Loading d_optim model')
