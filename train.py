@@ -512,8 +512,10 @@ if __name__ == "__main__":
             return re.sub(r'(convs\.)(\d)(.*)', fr'\g<1>{layer_number}\g<3>', layer)
 
         import ipdb;ipdb.set_trace()
-        pretrained_discriminator = {subtract_one_from_layer(k): v for k, v in ckpt["d"]}
-        discriminator.load_state_dict(pretrained_discriminator, strict=False)
+        pretrained_discriminator = {subtract_one_from_layer(k): ckpt['d'][k] for k in ckpt["d"]}
+        discriminator_state = discriminator.state_dict()
+        discriminator_state.update(pretrained_discriminator)
+        discriminator.load_state_dict(discriminator_state, strict=False)
 
         # print('Loading generator model')
         # generator.load_state_dict(ckpt["g"])
