@@ -528,14 +528,14 @@ if __name__ == "__main__":
         g_ema.load_state_dict(pretrained_generator, strict=False)
         # g_ema.load_state_dict(ckpt["g_ema"])
 
-        print('Loading g_optim model')
-        import ipdb;ipdb.set_trace()
-        ckpt["g_optim"]['state'] = {}
-        g_optim.load_state_dict(ckpt["g_optim"])
-
-        print('Loading d_optim model')
-        ckpt["d_optim"]['state'] = {}
-        d_optim.load_state_dict(ckpt["d_optim"])
+        # print('Loading g_optim model')
+        # import ipdb;ipdb.set_trace()
+        # ckpt["g_optim"]['state'] = {}
+        # g_optim.load_state_dict(ckpt["g_optim"])
+        #
+        # print('Loading d_optim model')
+        # ckpt["d_optim"]['state'] = {}
+        # d_optim.load_state_dict(ckpt["d_optim"])
 
     if args.distributed:
         generator = nn.parallel.DistributedDataParallel(
