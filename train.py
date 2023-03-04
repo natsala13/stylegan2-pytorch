@@ -498,27 +498,29 @@ if __name__ == "__main__":
         print([x for x, _ in ckpt["d"].items()])
 
         print('#### Trying to take only needed values from Geneerator')
-        pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
-        generator.load_state_dict(pretrained_generator, strict=False)
+        # pretrained_generator = {k: v for k, v in ckpt["g"].items() if k in generator.state_dict()}
+        generator.load_state_dict(ckpt["g"])
 
         print('#### Trying to take only needed values from Dicriminator')
         # pretrained_discriminator = {k: v for k, v in ckpt["d"].items() if k in discriminator.state_dict()}
-        import re
-
-        def subtract_one_from_layer(layer):
-            if not layer.startswith('conv'):
-                return layer
-            layer_number = int(re.match(r'convs\.(\d).*', layer).group(1)) - 1
-            return re.sub(r'(convs\.)(\d)(.*)', fr'\g<1>{layer_number}\g<3>', layer)
-
+        # import re
+        #
+        # def subtract_one_from_layer(layer):
+        #     if not layer.startswith('conv'):
+        #         return layer
+        #     layer_number = int(re.match(r'convs\.(\d).*', layer).group(1)) - 1
+        #     return re.sub(r'(convs\.)(\d)(.*)', fr'\g<1>{layer_number}\g<3>', layer)
+        #
+        # # import ipdb;ipdb.set_trace()
+        # pretrained_discriminator = {subtract_one_from_layer(k): ckpt['d'][k] for k in ckpt["d"]}
+        # discriminator_state = discriminator.state_dict()
+        # discriminator_state.update(pretrained_discriminator)
+        #
         # import ipdb;ipdb.set_trace()
-        pretrained_discriminator = {subtract_one_from_layer(k): ckpt['d'][k] for k in ckpt["d"]}
-        discriminator_state = discriminator.state_dict()
-        discriminator_state.update(pretrained_discriminator)
+        # ckpt['d']['convs.1.conv1.0.weight'].size()
 
-        import ipdb;ipdb.set_trace()
 
-        discriminator.load_state_dict(discriminator_state, strict=False)
+        discriminator.load_state_dict(ckpt['d'])
 
         # print('Loading generator model')
         # generator.load_state_dict(ckpt["g"])
