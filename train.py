@@ -515,6 +515,9 @@ if __name__ == "__main__":
         pretrained_discriminator = {subtract_one_from_layer(k): ckpt['d'][k] for k in ckpt["d"]}
         discriminator_state = discriminator.state_dict()
         discriminator_state.update(pretrained_discriminator)
+
+        import ipdb;ipdb.set_trace()
+
         discriminator.load_state_dict(discriminator_state, strict=False)
 
         # print('Loading generator model')
