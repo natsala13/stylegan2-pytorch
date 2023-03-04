@@ -530,9 +530,11 @@ if __name__ == "__main__":
 
         print('Loading g_optim model')
         import ipdb;ipdb.set_trace()
+        ckpt["g_optim"]['state'] = {}
         g_optim.load_state_dict(ckpt["g_optim"])
 
         print('Loading d_optim model')
+        ckpt["d_optim"]['state'] = {}
         d_optim.load_state_dict(ckpt["d_optim"])
 
     if args.distributed:
