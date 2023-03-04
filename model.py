@@ -554,7 +554,7 @@ class Generator(nn.Module):
 
         i = 1
 
-        image_per_layer = {skip.size()[-1]: skip}
+        # image_per_layer = {skip.size()[-1]: skip}
 
         for conv1, conv2, noise1, noise2, to_rgb in zip(
             self.convs[::2], self.convs[1::2], noise[1::2], noise[2::2], self.to_rgbs
@@ -565,8 +565,8 @@ class Generator(nn.Module):
 
             i += 2
 
-            print(f'Adding image to layer {skip.size()[-1]}')
-            image_per_layer[skip.size()[-1]] = skip
+            # print(f'Adding image to layer {skip.size()[-1]}')
+            # image_per_layer[skip.size()[-1]] = skip
 
         image = skip
 
