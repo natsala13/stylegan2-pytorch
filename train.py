@@ -529,8 +529,8 @@ if __name__ == "__main__":
         # discriminator.load_state_dict(ckpt["d"])
 
         print('Loading g_ema model')
-        pretrained_ema = {k: v for k, v in ckpt["g_ema"].items() if k in generator.state_dict()}
-        g_ema.load_state_dict(pretrained_generator, strict=False)
+        # pretrained_ema = {k: v for k, v in ckpt["g_ema"].items() if k in generator.state_dict()}
+        g_ema.load_state_dict(ckpt["g_ema"])
         # g_ema.load_state_dict(ckpt["g_ema"])
 
         # print('Loading g_optim model')
